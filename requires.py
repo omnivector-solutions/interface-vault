@@ -2,7 +2,7 @@ from charms.reactive import hook
 from charms.reactive import RelationBase
 from charms.reactive import scopes
 from charms.reactive import is_state
-from charms.reactive import hookenv
+
 
 class VaultClient(RelationBase):
     scope = scopes.GLOBAL
@@ -23,7 +23,6 @@ class VaultClient(RelationBase):
     def broken(self):
         if(is_state('{relation_name}.available')):
             self.remove_state('{relation_name}.available')
-
 
     def get_token(self, name):
         """

@@ -2,8 +2,7 @@ from charmhelpers.core import hookenv
 from charms.reactive import RelationBase
 from charms.reactive import hook
 from charms.reactive import scopes
-from charms.reactive import is_state
-from charms.reactive import not_unless
+
 
 class VaultClient(RelationBase):
     scope = scopes.SERVICE
@@ -15,7 +14,6 @@ class VaultClient(RelationBase):
 
         if self.previous_token(service) != self.requested_token(service):
             conversation.set_state('{relation_name}.token.requested')
-
 
     # @not_unless('{provides:vault}.token.requested')
     def provide_token(self, service, host, port, token):
@@ -37,7 +35,6 @@ class VaultClient(RelationBase):
         conversation.set_local('token', token)
         conversation.remove_state('{relation_name}.token.requested')
 
-
     def requested_tokens(self):
         """
         Return a list of tuples mapping a service name to the token
@@ -54,7 +51,6 @@ class VaultClient(RelationBase):
             token = self.requested_token(service)
             yield service, token
 
-
     def requested_token(self, service):
         """
         Return the token requested by the given service.  If the given
@@ -62,7 +58,6 @@ class VaultClient(RelationBase):
         returned, indicating that the token should be generated.
         """
         return self.conversation(scope=service).get_remote('token', '')
-
 
     def previous_token(self, service):
         """
