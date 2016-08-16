@@ -11,6 +11,7 @@ class VaultClient(RelationBase):
     def changed(self):
         service = hookenv.remote_service_name()
         conversation = self.conversation()
+        conversation.set_state('{relation_name}.connected')
 
         if self.previous_token(service) != self.requested_token(service):
             conversation.set_state('{relation_name}.token.requested')
